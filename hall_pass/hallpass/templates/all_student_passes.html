@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hall-passes-container" style="column-count: 3; /* or 2 for two columns */ column-gap: 20px;">
+    {% for pass in hall_passes %}
+    <div class="hall-pass-card" style="break-inside: avoid; page-break-inside: avoid; display: inline-block; width: 100%; margin-bottom: 20px; border: 1px solid #000; padding: 10px; font-family: 'Arial', sans-serif;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="flex-grow: 1; margin: 0;">Hall Pass</h2>
+            <div style="flex-shrink: 0;">
+                <img src="data:image/png;base64,{{ pass.img_base64 }}" alt="QR Code" style="width: 1in; height: 1in;">
+            </div>
+        </div>
+        <p><strong>Name:</strong> {{ pass.name }}</p>
+        <p><strong>ID:</strong> {{ pass.student_id }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+<style type="text/css">
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        .hall-passes-container, .hall-passes-container * {
+            visibility: visible;
+        }
+        .hall-passes-container {
+            position: absolute;
+            left: 0;
+            top: 0;
+            column-count: 3; /* Match this number to the main container */
+        }
+        .hall-pass-card {
+            display: block; /* Override inline-block for printing */
+            page-break-inside: avoid;
+        }
+    }
+</style>
+{% endblock %}

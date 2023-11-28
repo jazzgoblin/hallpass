@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-3">
+    <h2>Pass Records Count</h2>
+
+    <table id="studentsTable" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th scope="col">Teacher</th>
+                <th scope="col">Print Passes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for teacher in teachers %}
+            <tr>
+                <th scope="row">{{ teacher }}</a> </th>
+                <th scope="row"><a class="btn btn-info" href="{% url 'teacher_passes' teacher.id %}" role="button">Print Passes</a> </th>
+
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="2">No pass records found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<!-- Include DataTables scripts -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#studentsTable').DataTable({
+        "pagingType": "full_numbers" // You can use simple numbers or full pagination controls
+    });
+});
+</script>
+{% endblock %}
